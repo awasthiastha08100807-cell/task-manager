@@ -1,0 +1,11 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Python (if any)
+__pycache__/
+*.pyc
+
+# Docker
+*.env
+docker-compose.override.yaml

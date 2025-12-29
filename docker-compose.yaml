@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: task_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root@12345
+      MYSQL_DATABASE: task_manager
+      MYSQL_USER: taskuser
+      MYSQL_PASSWORD: taskpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: task_backend
+    restart: always
+    depends_on:
+      - mysql
+    command: ["./wait-for-it.sh", "mysql:3306", "--", "npm", "start"]
+    environment:
+      DB_HOST: mysql
+      DB_USER: taskuser
+      DB_PASSWORD: taskpass
+      DB_NAME: task_manager
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./backend:/usr/src/app
+      - ./backend/wait-for-it.sh:/usr/src/app/wait-for-it.sh
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: task_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app
+
+volumes:
+  mysql_data:
