@@ -3,7 +3,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-A **Task Manager** web app built with **React**, **Node.js/Express**, and **MySQL**. Fully **dockerized** for easy setup.
+A **Task Manager** web app built with **React**, **Python**, and **MySQL**. Fully **dockerized** for easy setup.
 
 ---
 
